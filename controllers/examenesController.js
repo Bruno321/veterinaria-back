@@ -86,7 +86,7 @@ exports.obtenerSolicitudes = async (req,res,next) => {
         }
         // TODO autoasignar CASO que seria el id
         const solicitudes = await Solicitudes.findAll({
-            include:[{model:Examen,attributes:['nombreAnimal','caso']},Examenes]
+            include:[{model:Examen,attributes:['nombreAnimal','caso']},Examenes,{model:Usuario,attributes:['nombres','apellidos']}]
         })
         return res.status(200).json(solicitudes)
     } catch(e){
