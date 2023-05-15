@@ -8,9 +8,6 @@ const Examen = db.define('examen', {
         autoIncrement: true
     },
     caso: Sequelize.STRING,
-    propietario: Sequelize.STRING,
-    direccion: Sequelize.STRING,
-    telefono: Sequelize.STRING,
 
     fecha: Sequelize.DATEONLY,
     hora: Sequelize.TIME,

@@ -7,7 +7,7 @@ const Veterinario = db.define('veterinario', {
         primaryKey: true,
         autoIncrement: true
     },
-    expdiente: {
+    expediente: {
         type: Sequelize.INTEGER,
         unique:true
     },
