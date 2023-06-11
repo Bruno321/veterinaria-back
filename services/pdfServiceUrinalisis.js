@@ -8,7 +8,12 @@ const PdfkitConstruct = require("pdfkit-construct");
  * numberRow, apellidos, nombres, numeroJugador.
  */
 
-async function buildPDF(dataCallback, endCallback, solicitud, examen) {
+async function buildPDFUrinalisis(
+  dataCallback,
+  endCallback,
+  solicitud,
+  examen
+) {
   const pdf = new PdfkitConstruct({
     size: "A4",
     bufferPages: true,
@@ -41,7 +46,7 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
         .font("Helvetica")
         .fontSize(14)
         .fillColor("#004090")
-        .text("Resultados Hematología", { align: "center" });
+        .text("Resultados Parasitología", { align: "center" });
     }
   );
 
@@ -69,7 +74,7 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
       cellsFont: "Helvetica",
       cellsFontSize: 8,
       cellsPadding: 0.8,
-      marginBottom: 12,
+      marginBottom: 14,
     }
   );
 
@@ -124,7 +129,7 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
       cellsFont: "Helvetica",
       cellsFontSize: 8,
       cellsPadding: 0.8,
-      marginBottom: 12,
+      marginBottom: 14,
     }
   );
 
@@ -161,191 +166,17 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
       cellsFont: "Helvetica",
       cellsFontSize: 8,
       cellsPadding: 0.8,
-      marginBottom: 12,
+      marginBottom: 14,
     }
   );
 
-  // Tabla que muestra los datos del previos al examen
+  // Tabla que muestra los datos del examen
   pdf.addTable(
     [
-      { key: "columna1", label: "Mesurando", align: "center" },
-      { key: "columna2", label: "Valor", align: "center" },
-      { key: "columna3", label: "Variación", align: "center" },
-      { key: "columna4", label: "Referencia", align: "center" },
-      { key: "columna5", label: "Unidades", align: "center" },
-      { key: "columna6", label: "Morfología celular", align: "center" },
-      { key: "columna7", label: " ", align: "center" },
+      { key: "columna1", label: "", align: "center" },
+      { key: "columna2", label: "", align: "center" },
     ],
-    [
-      {
-        columna1: "Hematocrito",
-        columna2: examen.Hematocrito,
-        columna3: examen.HematocritoVar,
-        columna4: "0.37 - 0.55",
-        columna5: "L/L",
-        columna6: "Anisocitosis",
-        columna7: examen.Anisocitosis,
-      },
-      {
-        columna1: "Hemoglobina",
-        columna2: examen.Hemoglobina,
-        columna3: examen.HemoglobinaVar,
-        columna4: "120 - 180",
-        columna5: "g/L",
-        columna6: "Policromasia",
-        columna7: examen.Policromasia,
-      },
-      {
-        columna1: "Eritrocitos",
-        columna2: examen.Eritrocitos,
-        columna3: examen.EritrocitosVar,
-        columna4: "5.5 - 8.5",
-        columna5: "x10^12/L",
-        columna6: "P. Basofilico",
-        columna7: examen.PBasofilico,
-      },
-      {
-        columna1: "VGM",
-        columna2: examen.VGM,
-        columna3: examen.VGMVar,
-        columna4: "60 - 70",
-        columna5: "fL",
-        columna6: "Hipocromía",
-        columna7: examen.Hipocromía,
-      },
-      {
-        columna1: "CGMH",
-        columna2: examen.CGMH,
-        columna3: examen.CGMHVar,
-        columna4: "320 - 360",
-        columna5: "g/L",
-        columna6: "Aglutinación",
-        columna7: examen.Aglutinación,
-      },
-      {
-        columna1: "Reticulocitos",
-        columna2: examen.Reticulocitos,
-        columna3: examen.ReticulocitosVar,
-        columna4: "<60",
-        columna5: "x10^9/L",
-        columna6: "Rouleaux",
-        columna7: examen.Rouleaux,
-      },
-      {
-        columna1: "Plaquetas",
-        columna2: examen.Plaquetas,
-        columna3: examen.PlaquetasVar,
-        columna4: "200 - 600",
-        columna5: "x10^9/L",
-        columna6: "Metarrubricitos",
-        columna7: examen.Metarrubricitos,
-      },
-      {
-        columna1: "Sólidos Totales",
-        columna2: examen.SolidosTotales,
-        columna3: examen.SolidosTotalesVar,
-        columna4: "60 - 75",
-        columna5: "g/L",
-        columna6: "Poiquilocitosis",
-        columna7: examen.Poiquilocitosis,
-      },
-      {
-        columna1: "Leucocitos Totales",
-        columna2: examen.Leucocitos_Totales,
-        columna3: examen.Leucocitos_TotalesVar,
-        columna4: "6.0 - 17.0",
-        columna5: "x10^9/L",
-        columna6: "Tipo",
-        columna7: examen.Tipo,
-      },
-      {
-        columna1: "Neutrófilos",
-        columna2: examen.Neutrófilos,
-        columna3: examen.NeutrófilosVar,
-        columna4: "3.0 - 11.5",
-        columna5: "x10^9/L",
-        columna6: "",
-        columna7: "",
-      },
-      {
-        columna1: "Bandas",
-        columna2: examen.Bandas,
-        columna3: examen.BandasVar,
-        columna4: "0 - 0.3",
-        columna5: "x10^9/L",
-        columna6: "",
-        columna7: "",
-      },
-      {
-        columna1: "Linfocitos",
-        columna2: examen.Linfocitos,
-        columna3: examen.LinfocitosVar,
-        columna4: "1.0 - 4.8",
-        columna5: "x10^9/L",
-        columna6: "Neutrofilos Toxicos",
-        columna7: examen.NeutrofilosToxicos,
-      },
-      {
-        columna1: "Monocitos",
-        columna2: examen.Monocitos,
-        columna3: examen.MonocitosVar,
-        columna4: "0 - 1.4",
-        columna5: "x10^9/L",
-        columna6: "Linfocitos Reactivos",
-        columna7: examen.LinfocitosReactivos,
-      },
-      {
-        columna1: "Eosinófilos",
-        columna2: examen.Eosinófilos,
-        columna3: examen.EosinófilosVar,
-        columna4: "0 - 0.9",
-        columna5: "x10^9/L",
-        columna6: "Mielo Inmaduros",
-        columna7: examen.MieloInmaduros,
-      },
-      {
-        columna1: "Basofilos",
-        columna2: examen.Basofilos,
-        columna3: examen.BasofilosVar,
-        columna4: "Raros",
-        columna5: "x10^9/L",
-        columna6: "Microfilarias",
-        columna7: examen.Microfilarias,
-      },
-      {
-        columna1: "Artefactos",
-        columna2: examen.Artefactos,
-        columna3: "",
-        columna4: "",
-        columna5: "",
-        columna6: "Macroplaquetas",
-        columna7: examen.Macroplaquetas,
-      },
-    ],
-    {
-      width: "fill_body",
-      border: { size: 0.1, color: "#004090" },
-      marginLeft: 60,
-      marginRight: 60,
-      headAlign: "center",
-      headFont: "Helvetica",
-      headFontSize: 7,
-      headBackground: "#004090",
-      headColor: "#fff",
-      cellsFont: "Helvetica",
-      cellsFontSize: 8,
-      cellsPadding: 1,
-      marginBottom: 12,
-    }
-  );
-
-  // Tabla que muestra la interpretación del médico
-  pdf.addTable(
-    [
-      { key: "columna1", label: "", align: "left" },
-      { key: "columna2", label: "", align: "left" },
-    ],
-    [{ columna1: "Interpretación", columna2: examen.interpretacion }],
+    [{ columna1: "Método de obtención:", columna2: "No referido" }],
     {
       width: "fill_body",
       border: { size: 0.1, color: "#004090" },
@@ -358,8 +189,155 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
       headColor: "#000000",
       cellsFont: "Helvetica",
       cellsFontSize: 8,
-      cellsPadding: 1.2,
-      marginBottom: 4,
+      cellsPadding: 0.8,
+      marginBottom: 14,
+    }
+  );
+
+  pdf.addTable(
+    [
+      { key: "columna1", label: "", align: "center" },
+      { key: "columna2", label: "Examen físico", align: "center" },
+      { key: "columna3", label: "", align: "center" },
+      { key: "columna4", label: "", align: "center" },
+      { key: "columna5", label: "", align: "center" },
+      { key: "columna6", label: "Examen Químico", align: "center" },
+      { key: "columna7", label: "", align: "center" },
+    ],
+    [
+      {
+        columna1: "Color:",
+        columna2: examen.color,
+        columna3: "Proteínas",
+        columna4: examen.proteinas,
+        columna5: "g/L",
+        columna6: "pH",
+        columna7: examen.pH,
+      },
+      {
+        columna1: "Apariencia:",
+        columna2: examen.apariencia,
+        columna3: "Glucosa",
+        columna4: examen.glucosa,
+        columna5: "mmol/L",
+        columna6: "Cetonas",
+        columna7: examen.cetonas,
+      },
+      {
+        columna1: "Densidad:",
+        columna2: examen.densidad,
+        columna3: "Sangre/Hg",
+        columna4: examen.sangreHG,
+        columna5: "Eri/µL",
+        columna6: "Bilirrubina",
+        columna7: examen.bilirrubina,
+      },
+    ],
+    {
+      width: "fill_body",
+      border: { size: 0.1, color: "#004090" },
+      marginLeft: 60,
+      marginRight: 60,
+      headAlign: "center",
+      headFont: "Helvetica",
+      headFontSize: 8,
+      headBackground: "#004090",
+      headColor: "#fff",
+      cellsFont: "Helvetica",
+      cellsFontSize: 8,
+      cellsPadding: 0.8,
+      marginBottom: 14,
+    }
+  );
+
+  pdf.addTable(
+    [
+      { key: "columna1", label: "", align: "center" },
+      { key: "columna2", label: "Examen físico", align: "center" },
+      { key: "columna3", label: "", align: "center" },
+      { key: "columna4", label: "", align: "center" },
+      { key: "columna5", label: "Examen Químico", align: "center" },
+      { key: "columna6", label: "", align: "center" },
+    ],
+    [
+      {
+        columna1: "Eritrocitos:",
+        columna2: examen.eritrocitos,
+        columna3: "Campo 400x",
+        columna4: "Renales",
+        columna5: examen.renales,
+        columna6: "Campo 400x",
+      },
+      {
+        columna1: "Leucocitos:",
+        columna2: examen.leucocitos,
+        columna3: "Campo 400x",
+        columna4: "Cristales",
+        columna5: examen.cristales,
+        columna6: "Campo 400x",
+      },
+      {
+        columna1: "Escamosas:",
+        columna2: examen.escamosas,
+        columna3: "Campo 400x",
+        columna4: "Lipidos",
+        columna5: examen.lipidos,
+        columna6: "Campo 400x",
+      },
+      {
+        columna1: "Transitorias:",
+        columna2: examen.transitorias,
+        columna3: "Campo 400x",
+        columna4: "Bacterias",
+        columna5: examen.bacterias,
+        columna6: "Campo 400x",
+      },
+      {
+        columna1: "Cilindros:",
+        columna2: examen.cilindros,
+        columna3: "Campo 400x",
+        columna4: "Otros:",
+        columna5: examen.otros,
+        columna6: "Campo 400x",
+      },
+    ],
+    {
+      width: "fill_body",
+      border: { size: 0.1, color: "#004090" },
+      marginLeft: 60,
+      marginRight: 60,
+      headAlign: "center",
+      headFont: "Helvetica",
+      headFontSize: 8,
+      headBackground: "#004090",
+      headColor: "#fff",
+      cellsFont: "Helvetica",
+      cellsFontSize: 8,
+      cellsPadding: 0.8,
+      marginBottom: 14,
+    }
+  );
+
+  pdf.addTable(
+    [
+      { key: "columna1", label: "", align: "center" },
+      { key: "columna2", label: "", align: "center" },
+    ],
+    [{ columna1: "Interpretación:", columna2: examen.interpretacion }],
+    {
+      width: "fill_body",
+      border: { size: 0.1, color: "#004090" },
+      marginLeft: 60,
+      marginRight: 60,
+      headAlign: "center",
+      headFont: "Helvetica",
+      headFontSize: 0,
+      headBackground: "#004090",
+      headColor: "#000000",
+      cellsFont: "Helvetica",
+      cellsFontSize: 8,
+      cellsPadding: 0,
+      marginBottom: 14,
     }
   );
 
@@ -375,7 +353,7 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
         .text(
           "__________________________________",
           pdf.footer.x + 60,
-          pdf.footer.y - 70
+          pdf.footer.y - 160
         );
       pdf
         .font("Helvetica")
@@ -383,7 +361,7 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
         .text(
           "Técnico en Análisis Clínicos",
           pdf.footer.x + 100,
-          pdf.footer.y - 57
+          pdf.footer.y - 146
         );
       pdf
         .font("Helvetica")
@@ -391,15 +369,15 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
         .text(
           "__________________________________",
           pdf.footer.x + 60,
-          pdf.footer.y - 22
+          pdf.footer.y - 90
         );
       pdf
         .font("Helvetica")
-        .fontSize(6)
+        .fontSize(7)
         .text(
           "D.Cs. y Especialista certificada en Anatomopatología Veterinaria, \n CONCERVET \n VoBo. Responsable del Laboratorio de Patología Veterinaria",
           pdf.footer.x - 200,
-          pdf.footer.y - 9,
+          pdf.footer.y - 76,
           { align: "center" }
         );
 
@@ -409,7 +387,7 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
         .text(
           "__________________________________",
           pdf.footer.x + 324,
-          pdf.footer.y - 70
+          pdf.footer.y - 160
         );
       pdf
         .font("Helvetica")
@@ -417,7 +395,7 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
         .text(
           "Practicante de Servicio Social",
           pdf.footer.x + 366,
-          pdf.footer.y - 57
+          pdf.footer.y - 146
         );
 
       pdf
@@ -426,17 +404,23 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
         .text(
           "__________________________________",
           pdf.footer.x + 324,
-          pdf.footer.y - 22
+          pdf.footer.y - 90
         );
       pdf
         .font("Helvetica")
-        .fontSize(6)
+        .fontSize(7)
         .text(
           "D.Cs. Certificado en Patología Clínica Veterinaria,\nCONCERVET",
           pdf.footer.x + 330,
-          pdf.footer.y - 9,
+          pdf.footer.y - 76,
           { align: "center" }
         );
+      pdf.text(
+        "Av. De las ciencias S/N, Delegación Santa Rosa Jáuregui CP: 76230, Juriquilla Querétaro, Tel: 4421921200 Ext. 5376\n Formato, resultados e interpretación son propiedad del Laboratorio de Patología Veterinaria FCN-UAQ\n Prohibida la reproducción total o parcial de este documento.\n Comentarios, dudas de la interpretación: patologiaveterinaria@uaq.mx",
+        pdf.footer.x + 60,
+        pdf.footer.y - 22,
+        { align: "center" }
+      );
     }
   );
   // render tables
@@ -445,5 +429,5 @@ async function buildPDF(dataCallback, endCallback, solicitud, examen) {
 }
 
 module.exports = {
-  buildPDF,
+  buildPDFUrinalisis,
 };
